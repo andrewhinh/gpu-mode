@@ -1,11 +1,14 @@
 [project]
-name = "lecture-002"
+name = "gpu-mode"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "ipykernel>=6.29.5",
+    "matplotlib>=3.9.2",
     "ninja>=1.11.1.1",
-    "torch>=2.4.1",
-    "torchvision>=0.19.1",
+    "torch>=2.5.0",
+    "torchvision>=0.20.0",
+    "wurlitzer>=3.1.1",
 ]
