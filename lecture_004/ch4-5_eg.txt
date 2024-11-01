@@ -1,3 +1,4 @@
+Ch. 4
 1.
     a. num_blocks = (1024 + 128 - 1) / 128 = 8, grid_size = 8 * 128 = 1151, block_size = 1151 / 8 = 143, num_warps = 143 / 32 = 4
     b. num_warps = grid_size / 32 = 1151 / 32 = 35
@@ -41,3 +42,41 @@
 -> grid_size = 8 * 512 = 4096
 -> max_occupancy = 4096 / 1048576 * 100 = 0.39%
 -> extreme underutilization
+
+Ch. 5
+1. Yes, by loading tiles into the shared memory and doing matadd on the tiles.
+2. attached
+3. 
+- forget one after input Mds and Nds -> threads start matmul on empty Md and Nd elements
+- forget one after output Pds -> threads start reloading Md and Nd elements without waiting for matmul to finish
+4. shared memory > registers when threads need to share data between them
+5. 32x32 tiles -> 2 (# mats) * 32 * 32 * 4 (bytes) = 8192 bytes = (1/4) of 2 full 64x64 mats
+6. 1000 blocks * 512 threads/block = 512000 instances of local var
+7. shared -> 1000 instances of var
+8.
+    a. 2 * N * N = 2N^2
+    b. 2 * T * T = 2N^2/2T^2 = N^2/T^2
+9. 36 flops, 7 32-bit global mem reads per thread -> 36 flops / (7 * 8-byte reads) = 36 flops / 56 bytes = 0.64 flops / byte
+    a. 200 GFLOPS, 100 GB/s -> 200 GFLOPS / 100 GB/s = 2 flops / byte > 0.64 flops / byte -> mem-bound
+    b. 300 GFLOPS, 250 GB/s -> 300 GFLOPS / 250 GB/s = 1.2 flops / byte > 0.64 flops / byte -> mem-bound
+10.
+    a. will only work for mats with side length = power of 2 -> of side lengths in [1,20], only 2, 4, 8, 16 will work
+    b. should fix idx calc to use A_height
+11.
+    a. 1024 * 128 = 131072 versions of i
+    b. 1024 * 128 = 131072 versions of x
+    c. 1024 versions of y
+    d. 1024 versions of b_s[]
+    e. y + b_s[128] = 129 32-bit vals = 129 * 4 = 516 bytes
+    f. 30 ops / 516 bytes = 0.058 ops / byte
+12.
+    a.
+    - 64 threads/block * 32 blocks = 2048 threads = 2048 (max)
+    - 27 reg/thread * 2048 threads = 55296 reg < 65536 (max)
+    - 96 KB/SM / 4 KB/SM = 24 blocks/SM < 32 (max)
+    -> limiting factor = not using enough shared mem
+    b.
+    - 256 threads/block * 8 blocks = 2048 threads = 2048 (max)
+    - 31 reg/thread * 2048 threads = 63488 reg < 65536 (max)
+    - 96 KB/SM / 8 KB/SM = 12 blocks/SM < 32 (max)
+    -> limiting factor = not using enough shared mem
