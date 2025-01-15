@@ -35,17 +35,6 @@ void matmul_col_kernel(float* M, float* N, float* P, int width) {
     }
 }
 
-// 1c
-// Per-row pros: 
-// - mem access for matrix M is more predictable
-// Per-row cons:
-// - mem access for matrix N is less predictable
-
-// Per-column pros:
-// - mem access for matrix N is more predictable
-// Per-column cons:
-// - mem access for matrix M is less predictable
-
 // 2
 __global__
 void matmul_vec_kernel(float* M, float* V, float* P, int width) {
@@ -100,16 +89,3 @@ void matmul_vec_stub(float* M, float* V, float* P, int width) {
     cudaFree(V_d);
     cudaFree(P_d);
 }
-
-// 3
-// a. 16 * 32 = 512
-// b. n_blocks = ((300 - 1) / 16 + 1) * ((150 - 1) / 32 + 1) = 111
-//    n_threads = 111 * 512 = 56832
-// c. 111
-// d. 150 * 300 = 45000
-
-// 4
-// a. 20 * 400 + 10 = 8010
-// b. 10 * 500 + 20 = 5020
-
-// 5. 10 * 400 + 20 * 500 + 5 * 300 = 15500
