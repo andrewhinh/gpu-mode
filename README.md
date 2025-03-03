@@ -128,3 +128,56 @@ The PMPP Book: [Programming Massively Parallel Processors: A Hands-on Approach](
 ## Lecture 29: Triton Internals
 - Speaker: [Kapil Sharma](https://www.kapilsharma.dev/)
 - Code/presentation in the [lecture_029](./lecture_029/) folder
+
+## Lecture 30: Quantized training
+- Speaker: [Thien Tran](https://github.com/gau-nernst)
+- Code/presentation in the [lecture_030](./lecture_030/) folder
+
+## Lecture 31: Beginners Guide to Metal Kernels
+- Speaker: [Nikita Shulga](https://github.com/gau-nernst)
+- Code/presentation in the [lecture_031](./lecture_031/) folder
+
+## Lecture 32: Unsloth - LLM Systems Engineering
+- Speaker: [Daniel Han](https://x.com/danielhanchen)
+- [Slides](https://docs.google.com/presentation/d/1BvgbDwvOY6Uy6jMuNXrmrz_6Km_CBW0f2espqeQaWfc/edit?usp=sharing)
+
+## Lecture 33: BitBLAS
+- Speaker: [Wang Lei](https://github.com/LeiWang1999)
+- Code/presentation in the [lecture_033](./lecture_033/) folder
+
+## Lecture 34: Low Bit Triton Kernels
+- Speaker: [Hicham Badri](https://github.com/mobicham)
+- [Slides](https://docs.google.com/presentation/d/1R9B6RLOlAblyVVFPk9FtAq6MXR1ufj1NaT0bjjib7Vc/edit)
+
+## Lecture 35: SGLang Performance Optimization
+- Speaker: [Yineng Zhang](https://linkedin.com/in/zhyncs)
+- [Slides](https://github.com/zhyncs/lectures/blob/main/lecture_035/SGLang-Performance-Optimization-YinengZhang.pdf)
+
+# Lecture 36: CUTLASS and Flash ATtention 3
+- Speaker: [Jay Shah](https://research.colfax-intl.com/blog/)
+- [Slides](lecture_036/)
+
+# Lecture 37: Introduction to SASS & GPU Microarchitecture
+- Speaker: [Arun Demeure](https://github.com/ademeure)
+- [Slides](lecture_037/)
+
+# Lecture 38: Lowbit kernels for ARM CPU
+- Speaker: [Scott Roy](https://github.com/metascroy)
+- [Slides](lecture_038/)
+
+# Lecture 39: TorchTitan
+- Speaker: Mark Saroufim and Tianyu Liu
+
+# Lecture 40: Flash Infer
+- Speaker: [Zihao Ye](https://homes.cs.washington.edu/~zhye/)
+
+# Lecture 41: CUDA Docs for Humans
+- Speaker: [Charles Frye](https://x.com/charles_irl/status/1867306225706447023)
+- [Slides](https://docs.google.com/presentation/d/15lTG6aqf72Hyk5_lqH7iSrc8aP1ElEYxCxch-tD37PE/edit#slide=id.g326210b960f_0_42)
+ 
+# Lecture 42: Mosaic GPU
+- Speaker: [Adam Paszke](https://x.com/apaszke)
+
+# Lecture 43:
+- Speaker: Erik Schultheis
+- [Slides](lecture_042)
