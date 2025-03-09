@@ -1,0 +1,37 @@
+1. Yes, by loading tiles into the shared memory and doing matadd on the tiles.
+2. 
+3. Forget one after input Mds and Nds -> threads start matmul on empty Md and Nd elements
+- forget one after output Pds -> threads start reloading Md and Nd elements without waiting for matmul to finish
+4. shared memory > registers when threads need to share data between them
+5. 32x32 tiles -> 2 (# mats) * 32 * 32 * 4 (bytes) = 8192 bytes = (1/4) of 2 full 64x64 mats
+6. 1000 blocks * 512 threads/block = 512000 instances of local var
+7. shared -> 1000 instances of var
+8.
+    a. each thread loads 1 row of A and 1 row of B -> N times b/c N cols
+    b. loaded once into tile, no repeat request -> 1x
+9. 36 flops, 7 32-bit global mem reads per thread -> 36 flops / (7 * 4-byte reads) = 36 flops / 28 bytes = 1.28 flops / byte
+    a. 200 GFLOPS, 100 GB/s -> 200 GFLOPS / 100 GB/s = 2 flops / byte > 1.28 flops / byte -> mem-bound
+    b. 300 GFLOPS, 250 GB/s -> 300 GFLOPS / 250 GB/s = 1.2 flops / byte < 1.28 flops / byte -> compute-bound
+10.
+    a. will only work for mats with side length = power of 2 -> of side lengths in [1,20], only 2, 4, 8, 16 will work
+    b. should fix idx calc to use A_height
+11.
+    a. 1024 * 128 = 131072 versions of i
+    b. 1024 * 128 = 131072 versions of x
+    c. 1024 versions of y_s
+    d. 1024 versions of b_s[]
+    e. y + b_s[128] = 129 32-bit vals = 129 * 4 = 516 bytes
+    f. 30 ops / 516 bytes = 0.058 ops / byte
+12.
+    a.
+    - 64 threads/block * 32 blocks = 2048 threads = 2048 (max)
+    - 64 * 27 reg/thread = 1728, 65536 / 1728 = 37 blocks
+    - 96 KB/SM / 4 KB/SM = 24 blocks/SM < 32 (max)
+    -> limiting factor = not using enough shared mem
+    -> 24 * 64 = 1536 threads / 2048 = 75% occupancy
+    b.
+    - 256 threads/block * 8 blocks = 2048 threads = 2048 (max)
+    - 256 * 31 reg/thread = 7824, 65536 / 7824 = 8 blocks
+    - 96 KB/SM / 8 KB/SM = 12 blocks/SM < 32 (max)
+    -> limiting factor = thread count + registers
+    -> 8 * 256 = 2048 threads / 2048 = 100% occupancy
