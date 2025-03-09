@@ -140,7 +140,7 @@ vector_add_extension = load_inline(
     cuda_sources=cuda_source,
     functions=["vector_add"],
     with_cuda=True,
-    extra_cuda_cflags=["-O2"],
+    extra_cuda_cflags=["-O3", "-use_fast_math"],
 )
 
 
