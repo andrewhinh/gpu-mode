@@ -1,0 +1,39 @@
+1. P[0] = f[0] * 0 + f[1] * 0 + f[2] * x[0] + f[3] * x[1] + f[4] * x[2]
+        = 5 * 8 + 3 * 2 + 1 * 5
+        = 51
+2. [
+        2(0) + 1(4) + 4(1) = 8
+        2(4) + 1(1) + 4(3) = 21
+        2(1) + 1(3) + 4(2) = 13
+        2(3) + 1(2) + 4(3) = 20
+        2(2) + 1(3) + 4(0) = 7
+   ]
+3. 
+  a. Returning same array
+  b. Returning same array shifted left by 1 with 0 appended
+  c. Returning same array shifted left by 1 with 0 prepended
+  d. Returning weighted average of neighbors
+  e. Returning equal-weighted average of self and neighbors
+4. 
+  a. M - 1
+  b. N * M
+  c. (N - (M - 1)) * M = (N - M + 1)
+5. 
+  a. N^2 - (N-M+1)^2
+  b. N^2 * M^2
+  c. (N-M+1)^2 * M^2
+6. 
+  a. N1×N2 - (N1-M1+1)×(N2-M2+1)
+  b. N1×N2×M1×M2
+  c. (N1-M1+1)×(N2-M2+1)×M1×M2
+7. 
+  a. ceil(N/T)^2
+  b. 32^2 = 1024
+  c. (T+2M)^2 (including ghost cells)
+  d. 
+    1. ceil(N/T)^2
+    2. 32^2 = 1024
+    3. (T+2M)^2
+8. attached
+9. attached
+10. attached
