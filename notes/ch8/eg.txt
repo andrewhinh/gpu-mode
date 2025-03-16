@@ -1,0 +1,11 @@
+1. 
+  a. 118^3 = 1643032 cells
+  b. 118/8 ^ 3 = 3375 blocks
+  c. 118/8 ^ 3 = 3375 blocks
+  d. (118/32)^2 = 16 blocks
+2. 
+  a. (32+2)^2 * (16+2) = 20808 cells
+  b. 32^2 * 16 = 16384 cells
+  c. 13*16384 ops / (20808 * 4 bytes + 16384 * 4 bytes) = 1.43 ops/byte
+  d. 20808 * 4 bytes = 83232 bytes
+  e. (32+2)^2 * 2 planes * 4 bytes = 9248 bytes
