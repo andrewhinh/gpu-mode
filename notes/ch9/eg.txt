@@ -1,0 +1,10 @@
+1. 1 atomic op / 100 ns -> 10m atomic ops / s
+2. .9 * 4 ns + .1 * 100 ns = 13.6 ns -> 1/13.6 = 73m ops / s
+3. 50m flops / s
+4. (5 flops / 1 ns) / 1.1 = 4.55 GFLOPS / s
+5. 
+  d. atomicAdd(&Total, Partial);
+6. 
+  a. 524288 atomic ops
+  b. 524288 / 1024 = 512 blocks -> 512 blocks * 128 bins (atomic ops) = 65536 atomic ops
+  c. 524288 / 1024 / 4 = 128 blocks -> 128 blocks * 128 bins = 16384 atomic ops
