@@ -1,0 +1,47 @@
+1. 
+  4 6 7 1 2 8 5 2
+  4 4+6=10 6+7=13 7+1=8 1+2=3 2+8=10 8+5=13 5+2=7
+  4 10 4+13=17 10+8=18 13+3=16 8+10=18 3+13=16 10+7=17
+  4 10 17 18 4+16=20 10+18=28 17+16=33 18+17=35
+  4 10 17 18 20 28 33 35
+2. attached
+3. `if (threadIdx.x >= stride)` -> stride = 16 -> threads 0-15 wait -> divergence,
+  but stride = 32 -> threads 0-31 wait -> no divergence
+4. 2048 elements -> log(2048) = 11 iterations
+  -> step 1: stride = 1 (2**0) -> 2048 - 1 adds
+  -> step 2: stride = 2 (2**1) -> 2048 - 2 adds
+  -> step 3: stride = 4 (2**2) -> 2048 - 4 adds
+  -> step 4: stride = 8 (2**3) -> 2048 - 8 adds
+  -> step 5: stride = 16 (2**4) -> 2048 - 16 adds
+  -> step 6: stride = 32 (2**5) -> 2048 - 32 adds
+  -> step 7: stride = 64 (2**6) -> 2048 - 64 adds
+  -> step 8: stride = 128 (2**7) -> 2048 - 128 adds
+  -> step 9: stride = 256 (2**8) -> 2048 - 256 adds
+  -> step 10: stride = 512 (2**9) -> 2048 - 512 adds
+  -> step 11: stride = 1024 (2**10) -> 2048 - 1024 adds
+  -> 2047+2046+2044+2040+2032+2016+1984+1920+1792+1536+1024 = 20,481 adds
+5.
+  up:
+  4 6 7 1 2 8 5 2
+  _ 4+6=10 _ 7+1=8 _ 2+8=10 _ 5+2=7
+  _ 10 _ 10+8=18 _ 10 _ 10+7=17
+  _ 10 _ 18 _ 10 _ 18+17=35
+  down:
+  _ 10 _ 18 _ 10 _ 35
+  _ 10 _ 18 _ 18+10=28 _ 35
+  4 10 10+7=17 18 18+2=20 28 5+28=33 35
+6. 2048 elements -> log(2048) = 11 iterations
+  -> step 1: stride = 1 -> 2048 - 1*1024 = 1024 adds
+  -> step 2: stride = 2 -> 2048 - 2*512 = 512 adds
+  -> step 3: stride = 4 -> 2048 - 4*256 = 256 adds
+  -> step 4: stride = 8 -> 2048 - 8*128 = 128 adds
+  -> step 5: stride = 16 -> 2048 - 16*64 = 64 adds
+  -> step 6: stride = 32 -> 2048 - 32*32 = 32 adds
+  -> step 7: stride = 64 -> 2048 - 64*16 = 16 adds
+  -> step 8: stride = 128 -> 2048 - 128*8 = 8 adds
+  -> step 9: stride = 256 -> 2048 - 256*4 = 4 adds
+  -> step 10: stride = 512 -> 2048 - 512*2 = 2 adds
+  -> step 11: stride = 1024 -> 2048 - 1024*1 = 1 add
+  -> total: (1024 + 512 + 256 + 128 + 64 + 32 + 16 + 8 + 4 + 2 + 1) * 2 (up and down) = 4094 adds
+7. attached
+8. attached
