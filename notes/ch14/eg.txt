@@ -1,0 +1,35 @@
+1. 
+  COO:
+    row = [0, 0, 1, 2, 2, 3, 3]
+    col = [0, 2, 2, 1, 2, 0, 3]
+    val = [1, 7, 8, 4, 3, 2, 1]
+  CSR:
+    row_ptr = [0, 2, 3, 5, 7]
+    col = [0, 2, 2, 1, 2, 0, 3]
+    val = [1, 7, 8, 4, 3, 2, 1]
+  ELL:
+    indices = [
+        [0, 2, *, *],
+        [2, *, *, *],
+        [1, 2, *, *],
+        [0, 3, *, *]
+    ]
+    data = [
+        [1, 7, 0, 0],
+        [8, 0, 0, 0],
+        [4, 3, 0, 0],
+        [2, 1, 0, 0]
+    ]
+  JDS:
+    jds_row_ptr = [0, 4, 7]
+    col_idx = [0, 1, 0, 2, 2, 3, 2]
+    data = [1, 4, 2, 7, 3, 1, 8]
+    perm = [0, 2, 3, 1]
+2. 
+  COO: 3z
+  CSR: 2z + m + 1
+  ELL: Depends on max nnz per row -> 2m * max_nnz
+  JDS: Depends on max nnz per row -> 2z + m + (max_nnz-1)
+3. attached
+4. attached
+5. attached
