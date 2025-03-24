@@ -1,0 +1,20 @@
+1. attached
+2. uncoalesced global mem access happens when threads access uncontiguous mem locations,
+   avoided by using shared mem (i.e. when block size % tile size = 0)
+3. shared = n/a, addresses must only differ by constant factor (e.g. i+8 -> coalesced, i*8 -> uncoalesced)
+    a. coalesced
+    b. n/a
+    c. coalesced
+    d. uncoalesced
+    e. n/a
+    f. n/a
+    g. coalesced
+    h. n/a
+    i. uncoalesced
+4.
+    a. N^2 outputs with loop of len N, each loop reads 2 fp32 vals -> 2N^3 fp32 vals -> 2N^3*4 bytes = 8N^3 bytes, 
+    N^3 ops -> N^3/8N^3 = .125 ops/byte
+    b. N^2 outputs with loop of len N, but loop only reads size T once -> 2N^3/T fp32 vals -> 2N^3/T * 4 bytes = 8N^3/T bytes, 
+    N^3 ops -> N^3/8N^3/T = T*.125 ops/byte = 32*.125 = 4 ops/byte
+    c. N^2 outputs with loop of len N, but loop only reads size T once and performs 4x ops -> 2N^3/T fp32 vals -> 2N^3/T*4 bytes = 8N^3/T bytes, 
+    4 * N^3 ops -> 4N^3/8N^3/T = 4T*.125 ops/byte = 4 * 32 * .125 = 16 ops/byte
