@@ -1,0 +1,40 @@
+1.
+    a. num_blocks = (1024 + 128 - 1) / 128 = 8, grid_size = 8 * 128 = 1151, block_size = 1151 / 8 = 143, num_warps = 143 / 32 = 4
+    b. num_warps = grid_size / 32 = 1151 / 32 = 35
+    c. 
+        i. active_block_warps = 2 (warps 0 and 3), active_grid_warps = active_block_warps * num_blocks = 2 * 8 = 16
+        ii. divergent_block_warps = 2, divergent_grid_warps = divergent_block_warps * num_blocks = 2 * 8 = 16
+        iii. 100% SIMD efficient because warp 0, block 0 has threadIdx.x < 40
+        iv. num_efficient_threads = 64 - 40 = 24, SIMD % = 24 / 32 = 75% efficient
+        v. 100% SIMD efficient because warp 3, block 0 has threadIdx.x > 104
+    d. 
+        i. active_block_warps = 4, active_grid_warps = active_block_warps * num_blocks = 4 * 8 = 32
+        ii. all warps = divergent since all have threads with idx % 2 != 0
+        iii. warp 0, block 0 SIMD efficiency = 50% since half of the threads have idx % 2 == 0
+    e. 
+        i. i = 0 -> j < 5 - 0 = 5; ... ; i = 3 -> j < 5 - 1 = 4
+            -> 75% of all threads run 5 its, 25% run 4 its
+            -> 75% * 1151 = 863 iterations have no divergence
+        ii. 25% * 1151 = 287 iterations have divergence
+2. 512 * 4 = 2048
+3. 2048 - 2000 = 48 / 32 = 2 warps
+4. Slowest = 3 microsec,
+-> total wait time = (3-2) + (3-2.3) + (3-3) + (3-2.8) + (3-2.4) + (3-1.9) + (3-2.6) + (3-2.9) 
+                    = 1 + 0.7 + 0 + 0.2 + 0.6 + 1.1 + 0.4 + 0.1 
+                    = 4.1 microsec
+-> total time = 2.0 + 2.3 + 3.0 + 2.8 + 2.4 + 1.9 + 2.6 + 2.9 + 4.1
+             = 21.0 microsec
+-> % wait time = 4.1 / 21.0 * 100 = 19.52%
+5. No, since the difference between even 2 threads can be significant and cause logical errors.
+6. 512 * 3 = 1536 -> 3 blocks of 512 threads
+7. 
+    a. poss, 8 * 128 = 1024 / 2048 = 50%
+    b. poss, 16 * 64 = 1024 / 2048 = 50%
+    c. poss, 32 * 32 = 1024 / 2048 = 50%
+    d. poss, 64 * 32 = 2048 / 2048 = 100%
+    e. poss, 32 * 64 = 2048 / 2048 = 100%
+8. total # reg = 65536
+    a. max_reg_per_block = 128 * 30 = 3840, max_blocks = 65536 / 3840 = 17, thread_limit_blocks = 2048 / 128 = 16, active blocks = 16, active threads = 16 * 128 = 2048 / 2048 = 100% occupancy
+    b. max_reg_per_block = 32 * 29 = 928, max_blocks = 65536 / 928 = 70 -> 32 (max) -> max_occupancy = 32 * 32 / 2048 = 50% occupancy  -> block limit
+    c. max_reg_per_block = 256 * 34 = 8704, max_blocks = 65536 / 8704 = 7, thread_limit_blocks = 2048 / 256 = 8, active blocks = 7, active threads = 7 * 256 = 1792 / 2048 = 87% occupancy  -> reg limit
+9. 32x32 thread block has 1024 threads > 512 (max)
