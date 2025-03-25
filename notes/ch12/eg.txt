@@ -1,0 +1,17 @@
+1. 
+  i=5, j=4
+2. 
+  thread 2 -> C[6]-C[8]
+  iLow = 0
+  iHigh = min(k, len(A)) = 5
+  -> i=2, j=6-2=4
+  -> iHigh = 2
+  -> i=1, j=6-1=5
+  -> iLow = 2
+  -> i=2, j=4
+  -> i,j = 2,4
+3. attached
+4. 1030400 + 608000 = 1638400 elements 
+  a. 1638400 / 8 = 204800 threads
+  b. 1x per block -> 204800 / 1024 = 200
+  c. 204800 threads
