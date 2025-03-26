@@ -1,0 +1,5 @@
+1. attached
+2. channels for same location stored contiguously;
+   channel-wise ops across batches -> contiguous
+3. attached
+4. assume same c -> w_unroll consec -> h_out/w_out both increment -> scattered
