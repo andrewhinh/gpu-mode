@@ -1,0 +1,18 @@
+1. Which of the following statements are true for the Bezier curves example?
+  a. If N_LINES=1024 and BLOCK_DIM=64, the number of child kernels that are launched will be 16. 
+    True b/c 1024/64 = 16
+  b. If N_LINES=1024, the fixed-size pool should be reduced from 2048 (the default) to 1024 to get the best performance. 
+    False b/c less streams doesn't improve performance
+  c. If N_LINES=1024 and BLOCK_DIM=64 and per-thread streams are used, a total of 16 streams will be deployed. 
+    True b/c 1 stream per kernel launch
+2. Consider a two-dimensional organization of 64 equidistant points. It is classified with a quadtree. What will be the maximum depth of the quadtree (including the root node)? 
+  4 since 64 pts -> 4 children -> log4(64) = 3 + 1 (root) = 4
+3. For the same quadtree, what will be the total number of child kernel launches? 
+  16 b/c with depth 4, # internel nodes (1 per kernel launch) = 4 + 16 - 1 = 20
+4. True or False: Parent kernels can define new __constant__ variables that will be inherited by child kernels. 
+  False b/c __constant__ is not inherited
+5. True or False: Child kernels can access their parents’ shared and local memories. 
+  False
+6. Six blocks of 256 threads run the following parent kernel:
+How many child kernels could run concurrently? 
+  6 blocks * 256 threads = 1536 -> 1536 kernel launches
